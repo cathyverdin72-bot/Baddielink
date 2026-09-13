@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="theme-color" content="#09070d">
+  <meta name="description" content="BaddieLink — Meet. Chat. Vibe. An 18+ social connection platform.">
+
+  <title>BaddieLink — Meet. Chat. Vibe.</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- =========================================
+       APP SHELL
+  ========================================== -->
+
+  <div class="app-shell">
+
+    <!-- ================================
+         WELCOME SCREEN
+    ================================= -->
+
+    <section class="screen welcome-screen active" id="welcomeScreen">
+
+      <div class="welcome-glow glow-one"></div>
+      <div class="welcome-glow glow-two"></div>
+
+      <div class="welcome-content">
+
+        <div class="brand-mark">
+          <span class="heart-logo">♡</span>
+          <span class="brand-name">Baddie<span>Link</span></span>
+        </div>
+
+        <div class="welcome-image">
+          <img
+            src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=900&q=85"
+            alt="BaddieLink profile"
+          >
+          <div class="image-overlay"></div>
+
+          <div class="floating-badge badge-online">
+            <span class="online-dot"></span>
+            Online
+          </div>
+
+          <div class="floating-badge badge-location">
+            📍 Lagos
+          </div>
+        </div>
+
+        <div class="welcome-text">
+          <h1>Meet. Chat. <span>Vibe.</span></h1>
+
+          <p>
+            Discover people around you, start a conversation
+            and see where the vibe takes you.
+          </p>
+        </div>
+
+        <div class="welcome-actions">
+          <button class="primary-btn" onclick="showScreen('ageScreen')">
+            Join BaddieLink
+            <span>→</span>
+          </button>
+
+          <button class="secondary-btn" onclick="showScreen('loginScreen')">
+            Log In
+          </button>
+        </div>
+
+        <div class="adult-note">
+          <span>18+</span>
+          Adults only
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================================
+         AGE GATE
+    ================================= -->
+
+    <section class="screen centered-screen" id="ageScreen">
+
+      <button class="back-btn" onclick="showScreen('welcomeScreen')">
+        ←
+      </button>
+
+      <div class="age-card">
+
+        <div class="age-circle">
+          18+
+        </div>
+
+        <h2>Before you enter...</h2>
+
+        <p>
+          BaddieLink is exclusively for adults.
+          You must be at least 18 years old to create
+          an account and use the platform.
+        </p>
+
+        <div class="age-check">
+          <span>✓</span>
+          I confirm that I am 18 or older.
+        </div>
+
+        <button class="primary-btn" onclick="showScreen('signupScreen')">
+          I'm 18+ <span>→</span>
+        </button>
+
+        <button class="text-btn" onclick="showScreen('welcomeScreen')">
+          I'm not 18+
+        </button>
+
+        <small>
+          By continuing, you agree to follow the BaddieLink
+          Community Guidelines.
+        </small>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================================
+         LOGIN
+    ================================= -->
+
+    <section class="screen form-screen" id="loginScreen">
+
+      <div class="form-wrapper">
+
+        <button class="back-btn" onclick="showScreen('welcomeScreen')">
+          ←
+        </button>
+
+        <div class="mini-brand">
+          <span>♡</span> BaddieLink
+        </div>
+
+        <div class="form-heading">
+          <h2>Welcome back</h2>
+          <p>Log in and get back to the vibe.</p>
+        </div>
+
+        <form onsubmit="demoLogin(event)">
+
+          <label>Email or username</label>
+          <input
+            type="text"
+            placeholder="Enter your email or username"
+            required
+          >
+
+          <label>Password</label>
+
+          <div class="password-field">
+            <input
+              id="loginPassword"
+              type="password"
+              placeholder="Enter your password"
+              required
+            >
+            <button
+              type="button"
+              onclick="togglePassword('loginPassword')"
+            >
+              Show
+            </button>
+          </div>
+
+          <div class="form-row">
+            <label class="remember">
+              <input type="checkbox">
+              <span>Remember me</span>
+            </label>
+
+            <button type="button" class="forgot-btn">
+              Forgot password?
+            </button>
+          </div>
+
+          <button class="primary-btn full-btn" type="submit">
+            Log In
+          </button>
+
+        </form>
+
+        <div class="form-divider">
+          <span>or</span>
+        </div>
+
+        <button class="social-btn">
+          Continue with Google
+        </button>
+
+        <p class="switch-form">
+          Don't have an account?
+          <button onclick="showScreen('ageScreen')">
+            Join BaddieLink
+          </button>
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================================
+         SIGN UP
+    ================================= -->
+
+    <section class="screen form-screen" id="signupScreen">
+
+      <div class="form-wrapper">
+
+        <button class="back-btn" onclick="showScreen('ageScreen')">
+          ←
+        </button>
+
+        <div class="mini-brand">
+          <span>♡</span> BaddieLink
+        </div>
+
+        <div class="progress">
+          <span class="progress-active"></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <div class="form-heading">
+          <h2>Create your account</h2>
+          <p>Let's get your BaddieLink profile ready.</p>
+        </div>
+
+        <form onsubmit="goToProfileSetup(event)">
+
+          <label>Display name</label>
+          <input
+            id="signupName"
+            type="text"
+            placeholder="e.g. PrettyGirl123"
+            required
+          >
+
+          <label>Date of birth</label>
+          <input
+            type="date"
+            required
+          >
+
+          <label>Gender</label>
+          <select required>
+            <option value="">Select your gender</option>
+            <option>Woman</option>
+            <option>Man</option>
+            <option>Non-binary</option>
+            <option>Prefer not to say</option>
+          </select>
+
+          <label>Interested in</label>
+          <select required>
+            <option value="">Who are you interested in?</option>
+            <option>Women</option>
+            <option>Men</option>
+            <option>Everyone</option>
+          </select>
+
+          <label>City / Area</label>
+          <input
+            type="text"
+            placeholder="e.g. Lagos"
+            required
+          >
+
+          <button class="primary-btn full-btn" type="submit">
+            Continue <span>→</span>
+          </button>
+
+        </form>
+
+        <p class="terms-text">
+          By creating an account, you agree to our
+          Terms and Community Guidelines.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================================
+         PROFILE SETUP
+    ================================= -->
+
+    <section class="screen form-screen" id="profileSetupScreen">
+
+      <div class="form-wrapper">
+
+        <button class="back-btn" onclick="showScreen('signupScreen')">
+          ←
+        </button>
+
+        <div class="mini-brand">
+          <span>♡</span> BaddieLink
+        </div>
+
+        <div class="progress">
+          <span class="progress-active"></span>
+          <span class="progress-active"></span>
+          <span></span>
+        </div>
+
+        <div class="form-heading">
+          <h2>Build your profile</h2>
+          <p>Give people a reason to say hello.</p>
+        </div>
+
+        <div class="photo-upload">
+
+          <div class="upload-circle">
+            <span>+</span>
+          </div>
+
+          <div>
+            <strong>Add your main photo</strong>
+            <small>Make a good first impression.</small>
+          </div>
+
+        </div>
+
+        <label>About you</label>
+
+        <textarea
+          placeholder="Tell people a little about yourself..."
+          maxlength="180"
+        ></textarea>
+
+        <label>Your interests</label>
+
+        <div class="interest-list">
+          <button type="button">Music</button>
+          <button type="button">Movies</button>
+          <button type="button">Travel</button>
+          <button type="button">Food</button>
+          <button type="button">Fashion</button>
+          <button type="button">Sports</button>
+          <button type="button">Gaming</button>
+          <button type="button">Fitness</button>
+        </div>
+
+        <button
+          class="primary-btn full-btn"
+          onclick="enterApp()"
+        >
+          Finish Profile <span>→</span>
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================================
+         MAIN APP
+    ================================= -->
+
+    <section class="screen app-screen" id="appScreen">
+
+      <!-- TOP BAR -->
+
+      <header class="app-header">
+
+        <div class="mini-brand">
+          <span>♡</span> BaddieLink
+        </div>
+
+        <button class="coin-pill" onclick="openWallet()">
+          🪙 <strong id="coinBalance">120</strong>
+        </button>
+
+      </header>
+
+
+      <!-- DISCOVER -->
+
+      <main class="app-content" id="discoverView">
+
+        <div class="discover-heading">
+
+          <div>
+            <p class="eyebrow">DISCOVER</p>
+            <h2>People near you</h2>
+          </div>
+
+          <button class="filter-btn">
+            ⚙
+          </button>
+
+        </div>
+
+        <div class="location-banner">
+          <span>📍</span>
+          <div>
+            <strong>Nearby</strong>
+            <small>Showing people around your area</small>
+          </div>
+          <span class="green-check">✓</span>
+        </div>
+
+
+        <!-- PROFILE CARD -->
+
+        <article class="profile-card">
+
+          <div class="profile-image-wrapper">
+
+            <img
+              id="discoverImage"
+              src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=900&q=85"
+              alt="Profile"
+            >
+
+            <div class="profile-gradient"></div>
+
+            <div class="online-label">
+              <span></span> Online
+            </div>
+
+            <button class="more-btn">
+              •••
+            </button>
+
+            <div class="profile-card-info">
+
+              <div class="profile-name-row">
+                <h3>Amara, 24</h3>
+                <span class="verified">✓</span>
+              </div>
+
+              <p>📍 About 3 km away</p>
+
+              <span class="profile-status">
+                Just here to vibe 😌
+              </span>
+
+            </div>
+
+          </div>
+
+          <div class="profile-actions">
+
+            <button class="action-circle pass-action">
+              ✕
+            </button>
+
+            <button
+              class="action-circle like-action"
+              onclick="likeProfile()"
+            >
+              ♥
+            </button>
+
+            <button
+              class="action-circle chat-action"
+              onclick="openChat()"
+            >
+              💬
+            </button>
+
+          </div>
+
+        </article>
+
+
+        <!-- QUICK PROFILES -->
+
+        <div class="section-title-row">
+          <h3>More to explore</h3>
+          <button>See all</button>
+        </div>
+
+        <div class="mini-profiles">
+
+          <div class="mini-profile">
+            <div class="mini-image">
+              <img
+                src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=400&q=80"
+                alt="Lola"
+              >
+              <span></span>
+            </div>
+            <strong>Lola, 23</strong>
+            <small>5 km away</small>
+          </div>
+
+          <div class="mini-profile">
+            <div class="mini-image">
+              <img
+                src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=400&q=80"
+                alt="Daisy"
+              >
+              <span></span>
+            </div>
+            <strong>Daisy, 25</strong>
+            <small>7 km away</small>
+          </div>
+
+          <div class="mini-profile">
+            <div class="mini-image">
+              <img
+                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80"
+                alt="Tee"
+              >
+              <span></span>
+            </div>
+            <strong>Tee, 22</strong>
+            <small>9 km away</small>
+          </div>
+
+        </div>
+
+      </main>
+
+
+      <!-- MESSAGES -->
+
+      <main class="app-content hidden-view" id="messagesView">
+
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">YOUR CONNECTIONS</p>
+            <h2>Messages</h2>
+          </div>
+
+          <button class="icon-btn">✎</button>
+        </div>
+
+        <div class="message-search">
+          🔍
+          <input type="text" placeholder="Search conversations">
+        </div>
+
+        <div class="message-tabs">
+          <button class="active">All</button>
+          <button>Unread</button>
+          <button>Matches</button>
+        </div>
+
+        <div class="conversation-list">
+
+          <div class="conversation" onclick="openChat()">
+            <div class="conversation-image">
+              <img
+                src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=300&q=80"
+                alt="Amara"
+              >
+              <span></span>
+            </div>
+
+            <div class="conversation-info">
+              <strong>Amara</strong>
+              <p>Just chilling at home... hbu?</p>
+            </div>
+
+            <div class="conversation-meta">
+              <small>9:46 PM</small>
+              <b>2</b>
+            </div>
+          </div>
+
+
+          <div class="conversation">
+            <div class="conversation-image">
+              <img
+                src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=300&q=80"
+                alt="Lola"
+              >
+              <span></span>
+            </div>
+
+            <div class="conversation-info">
+              <strong>Lola</strong>
+              <p>You're so sweet 😂</p>
+            </div>
+
+            <div class="conversation-meta">
+              <small>8:32 PM</small>
+              <b>1</b>
+            </div>
+          </div>
+
+
+          <div class="conversation">
+            <div class="conversation-image">
+              <img
+                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80"
+                alt="Tee"
+              >
+              <span></span>
+            </div>
+
+            <div class="conversation-info">
+              <strong>Tee</strong>
+              <p>Send me a gift 😏</p>
+            </div>
+
+            <div class="conversation-meta">
+              <small>7:15 PM</small>
+              <b>1</b>
+            </div>
+          </div>
+
+        </div>
+
+      </main>
+
+
+      <!-- GIFTS -->
+
+      <main class="app-content hidden-view" id="giftsView">
+
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">MAKE SOMEONE SMILE</p>
+            <h2>Gifts 🎁</h2>
+          </div>
+        </div>
+
+        <div class="gift-hero">
+          <div class="gift-icon">🎁</div>
+          <h3>Send a little something</h3>
+          <p>
+            Use BaddieCoins to send virtual gifts
+            to people you vibe with.
+          </p>
+        </div>
+
+        <div class="gift-grid">
+
+          <button class="gift-item" onclick="sendGift('Rose', 10)">
+            <span>🌹</span>
+            <strong>Rose</strong>
+            <small>🪙 10</small>
+          </button>
+
+          <button class="gift-item" onclick="sendGift('Kiss', 50)">
+            <span>💋</span>
+            <strong>Kiss</strong>
+            <small>🪙 50</small>
+          </button>
+
+          <button class="gift-item" onclick="sendGift('Heart', 100)">
+            <span>💗</span>
+            <strong>Heart</strong>
+            <small>🪙 100</small>
+          </button>
+
+          <button class="gift-item" onclick="sendGift('Diamond', 250)">
+            <span>💎</span>
+            <strong>Diamond</strong>
+            <small>🪙 250</small>
+          </button>
+
+          <button class="gift-item" onclick="sendGift('Crown', 500)">
+            <span>👑</span>
+            <strong>Crown</strong>
+            <small>🪙 500</small>
+          </button>
+
+          <button class="gift-item" onclick="sendGift('VIP Gift', 1000)">
+            <span>🎁</span>
+            <strong>VIP Gift</strong>
+            <small>🪙 1,000</small>
+          </button>
+
+        </div>
+
+      </main>
+
+
+      <!-- WALLET -->
+
+      <main class="app-content hidden-view" id="walletView">
+
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">YOUR BALANCE</p>
+            <h2>Wallet</h2>
+          </div>
+        </div>
+
+        <div class="wallet-card">
+
+          <div class="wallet-top">
+            <div class="wallet-coin">🪙</div>
+
+            <div>
+              <small>BaddieCoins</small>
+              <h3 id="walletBalance">120</h3>
+            </div>
+          </div>
+
+          <p>
+            Use BaddieCoins to send virtual gifts
+            and unlock premium features.
+          </p>
+
+          <button class="primary-btn" onclick="showRecharge()">
+            Recharge <span>→</span>
+          </button>
+
+        </div>
+
+        <h3 class="sub-heading">Recent activity</h3>
+
+        <div class="transaction-list">
+
+          <div class="transaction">
+            <span>🎁</span>
+            <div>
+              <strong>Gift sent</strong>
+              <small>Today, 9:42 PM</small>
+            </div>
+            <b>-50</b>
+          </div>
+
+          <div class="transaction">
+            <span>🪙</span>
+            <div>
+              <strong>Coins purchased</strong>
+              <small>Yesterday</small>
+            </div>
+            <b>+550</b>
+          </div>
+
+        </div>
+
+      </main>
+
+
+      <!-- PROFILE -->
+
+      <main class="app-content hidden-view" id="profileView">
+
+        <div class="my-profile-header">
+
+          <div class="my-avatar">
+            <img
+              src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=400&q=80"
+              alt="Your profile"
+            >
+            <span></span>
+          </div>
+
+          <div>
+            <h2>PrettyGirl123 <span class="verified">✓</span></h2>
+            <p>@prettygirl123</p>
+          </div>
+
+          <button class="icon-btn">⚙</button>
+
+        </div>
+
+        <button class="edit-profile-btn">
+          Edit Profile
+        </button>
+
+        <div class="profile-stats">
+          <div>
+            <strong>128</strong>
+            <small>Likes</small>
+          </div>
+
+          <div>
+            <strong>34</strong>
+            <small>Connections</small>
+          </div>
+
+          <div>
+            <strong>4.8</strong>
+            <small>Rating</small>
+          </div>
+        </div>
+
+        <div class="profile-menu">
+
+          <button>
+            <span>👤</span>
+            Account
+            <b>›</b>
+          </button>
+
+          <button>
+            <span>🔒</span>
+            Privacy & Security
+            <b>›</b>
+          </button>
+
+          <button>
+            <span>🔔</span>
+            Notifications
+            <b>›</b>
+          </button>
+
+          <button>
+            <span>❓</span>
+            Help & Support
+            <b>›</b>
+          </button>
+
+          <button>
+            <span>ℹ️</span>
+            About BaddieLink
+            <b>›</b>
+          </button>
+
+        </div>
+
+        <button
+          class="logout-btn"
+          onclick="showScreen('welcomeScreen')"
+        >
+          Log Out
+        </button>
+
+      </main>
+
+
+      <!-- BOTTOM NAV -->
+
+      <nav class="bottom-nav">
+
+        <button
+          class="nav-item active"
+          onclick="switchTab('discover')"
+        >
+          <span>⌂</span>
+          <small>Discover</small>
+        </button>
+
+        <button
+          class="nav-item"
+          onclick="switchTab('messages')"
+        >
+          <span>💬</span>
+          <small>Messages</small>
+          <b class="notification-dot">2</b>
+        </button>
+
+        <button
+          class="nav-item"
+          onclick="switchTab('gifts')"
+        >
+          <span>🎁</span>
+          <small>Gifts</small>
+        </button>
+
+        <button
+          class="nav-item"
+          onclick="switchTab('wallet')"
+        >
+          <span>🪙</span>
+          <small>Wallet</small>
+        </button>
+
+        <button
+          class="nav-item"
+          onclick="switchTab('profile')"
+        >
+          <span>♡</span>
+          <small>Profile</small>
+        </button>
+
+      </nav>
+
+    </section>
+
+
+    <!-- ================================
+         CHAT MODAL
+    ================================= -->
+
+    <div class="modal-overlay" id="chatModal">
+
+      <div class="chat-window">
+
+        <header class="chat-header">
+
+          <button onclick="closeChat()">←</button>
+
+          <div class="chat-person">
+            <div class="chat-avatar">
+              <img
+                src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=200&q=80"
+                alt="Amara"
+              >
+              <span></span>
+            </div>
+
+            <div>
+              <strong>Amara, 24</strong>
+              <small>● Online</small>
+            </div>
+          </div>
+
+          <button>•••</button>
+
+        </header>
+
+
+        <div class="chat-body">
+
+          <div class="chat-date">
+            TODAY
+          </div>
+
+          <div class="message received">
+            <p>Heyy 😂</p>
+            <small>9:42 PM</small>
+          </div>
+
+          <div class="message sent">
+            <p>You're looking good 👀</p>
+            <small>9:43 PM</small>
+          </div>
+
+          <div class="message received">
+            <p>Aww thank you 😌</p>
+            <small>9:44 PM</small>
+          </div>
+
+          <div class="message sent">
+            <p>What are you up to?</p>
+            <small>9:45 PM</small>
+          </div>
+
+          <div class="message received">
+            <p>Just chilling at home... hbu?</p>
+            <small>9:46 PM</small>
+          </div>
+
+        </div>
+
+
+        <div class="chat-composer">
+
+          <button onclick="openGiftFromChat()">🎁</button>
+
+          <input
+            id="chatInput"
+            type="text"
+            placeholder="Type a message..."
+          >
+
+          <button onclick="sendMessage()">➤</button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ================================
+         GIFT MODAL
+    ================================= -->
+
+    <div class="modal-overlay" id="giftModal">
+
+      <div class="gift-modal">
+
+        <button class="modal-close" onclick="closeGift()">
+          ×
+        </button>
+
+        <div class="gift-modal-icon">
+          🎁
+        </div>
+
+        <h2>Send a Gift</h2>
+        <p>Make someone's day a little better.</p>
+
+        <div class="gift-grid">
+
+          <button class="gift-item" onclick="sendGift('Rose', 10)">
+            <span>🌹</span>
+            <strong>Rose</strong>
+            <small>🪙 10</small>
+          </button>
+
+          <button class="gift-item" onclick="sendGift('Kiss', 50)">
+            <span>💋</span>
+            <strong>Kiss</strong>
+            <small>🪙 50</small>
+          </button>
+
+          <button class="gift-item" onclick="sendGift('Heart', 100)">
+            <span>💗</span>
+            <strong>Heart</strong>
+            <small>🪙 100</small>
+          </button>
+
+          <button class="gift-item" onclick="sendGift('Diamond', 250)">
+            <span>💎</span>
+            <strong>Diamond</strong>
+            <small>🪙 250</small>
+          </button>
+
+          <button class="gift-item" onclick="sendGift('Crown', 500)">
+            <span>👑</span>
+            <strong>Crown</strong>
+            <small>🪙 500</small>
+          </button>
+
+          <button class="gift-item" onclick="sendGift('VIP Gift', 1000)">
+            <span>🎁</span>
+            <strong>VIP Gift</strong>
+            <small>🪙 1,000</small>
+          </button>
+
+        </div>
+
+        <div class="gift-balance">
+          Your balance:
+          <strong>🪙 <span id="giftBalance">120</span></strong>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ================================
+         RECHARGE MODAL
+    ================================= -->
+
+    <div class="modal-overlay" id="rechargeModal">
+
+      <div class="recharge-modal">
+
+        <button class="modal-close" onclick="closeRecharge()">
+          ×
+        </button>
+
+        <div class="gift-modal-icon">
+          🪙
+        </div>
+
+        <h2>Recharge BaddieCoins</h2>
+        <p>Choose a package to continue.</p>
+
+        <div class="coin-packages">
+
+          <button onclick="purchaseCoins(100, '$1.00')">
+            <span>🪙 100</span>
+            <strong>$1.00</strong>
+          </button>
+
+          <button class="popular" onclick="purchaseCoins(550, '$5.00')">
+            <span>🪙 550</span>
+            <strong>$5.00</strong>
+            <small>POPULAR</small>
+          </button>
+
+          <button onclick="purchaseCoins(1200, '$10.00')">
+            <span>🪙 1,200</span>
+            <strong>$10.00</strong>
+          </button>
+
+          <button onclick="purchaseCoins(3000, '$25.00')">
+            <span>🪙 3,000</span>
+            <strong>$25.00</strong>
+          </button>
+
+        </div>
+
+        <button class="primary-btn full-btn">
+          Proceed to Pay →
+        </button>
+
+        <small class="secure-payment">
+          🔒 Secure payment
+        </small>
+
+      </div>
+
+    </div>
+
+
+    <!-- ================================
+         TOAST
+    ================================= -->
+
+    <div class="toast" id="toast">
+      <span>✓</span>
+      <p id="toastMessage">Done!</p>
+    </div>
+
+  </div>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
