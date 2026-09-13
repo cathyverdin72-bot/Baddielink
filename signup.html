@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Join BaddieLink</title>
+
+  <meta
+    name="description"
+    content="Create your BaddieLink account and meet people looking for the same kind of connection."
+  >
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="signup-page">
+
+  <!-- =========================================
+       NAVIGATION
+  ========================================== -->
+
+  <header class="navbar">
+    <a href="index.html" class="logo">
+      Baddie<span>Link</span>
+    </a>
+
+    <a href="index.html" class="back-link">
+      ← Back
+    </a>
+  </header>
+
+
+  <!-- =========================================
+       SIGNUP
+  ========================================== -->
+
+  <main class="signup-container">
+
+    <section class="signup-card">
+
+      <div class="signup-heading">
+        <span class="eyebrow">WELCOME TO BADDIELINK</span>
+
+        <h1>Create your account</h1>
+
+        <p>
+          Tell us a little about yourself and what
+          you're looking for.
+        </p>
+      </div>
+
+
+      <!-- =======================================
+           ACCOUNT DETAILS
+      ======================================== -->
+
+      <form id="signupForm">
+
+        <div class="form-section">
+
+          <h2>Account details</h2>
+
+          <div class="form-group">
+            <label for="username">
+              Username
+            </label>
+
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Choose a username"
+              autocomplete="username"
+              required
+            >
+          </div>
+
+
+          <div class="form-group">
+            <label for="email">
+              Email
+            </label>
+
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="you@example.com"
+              autocomplete="email"
+              required
+            >
+          </div>
+
+
+          <div class="form-group">
+            <label for="password">
+              Password
+            </label>
+
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Create a password"
+              autocomplete="new-password"
+              minlength="8"
+              required
+            >
+
+            <small>
+              Use at least 8 characters.
+            </small>
+          </div>
+
+        </div>
+
+
+        <!-- =======================================
+             AGE CONFIRMATION
+        ======================================== -->
+
+        <div class="form-section">
+
+          <h2>Age confirmation</h2>
+
+          <label class="checkbox-option">
+
+            <input
+              type="checkbox"
+              id="ageConfirm"
+              name="ageConfirm"
+              required
+            >
+
+            <span>
+              I confirm that I am 18 years old or older.
+            </span>
+
+          </label>
+
+        </div>
+
+
+        <!-- =======================================
+             WHAT ARE YOU LOOKING FOR?
+        ======================================== -->
+
+        <div class="form-section">
+
+          <h2>What are you looking for?</h2>
+
+          <p class="section-description">
+            Choose one or more options that describe
+            what you're interested in.
+          </p>
+
+
+          <div class="choice-grid">
+
+            <label class="choice-card">
+              <input
+                type="checkbox"
+                name="lookingFor"
+                value="hookup"
+              >
+
+              <span class="choice-content">
+                <span class="choice-icon">🔥</span>
+
+                <strong>Hookup</strong>
+
+                <small>
+                  Something casual
+                </small>
+              </span>
+            </label>
+
+
+            <label class="choice-card">
+              <input
+                type="checkbox"
+                name="lookingFor"
+                value="relationship"
+              >
+
+              <span class="choice-content">
+                <span class="choice-icon">❤️</span>
+
+                <strong>Relationship</strong>
+
+                <small>
+                  Something meaningful
+                </small>
+              </span>
+            </label>
+
+
+            <label class="choice-card">
+              <input
+                type="checkbox"
+                name="lookingFor"
+                value="friends"
+              >
+
+              <span class="choice-content">
+                <span class="choice-icon">🤝</span>
+
+                <strong>Friends</strong>
+
+                <small>
+                  Meet new people
+                </small>
+              </span>
+            </label>
+
+
+            <label class="choice-card">
+              <input
+                type="checkbox"
+                name="lookingFor"
+                value="chat-mate"
+              >
+
+              <span class="choice-content">
+                <span class="choice-icon">💬</span>
+
+                <strong>Chat Mate</strong>
+
+                <small>
+                  Someone to talk to
+                </small>
+              </span>
+            </label>
+
+
+            <label class="choice-card">
+              <input
+                type="checkbox"
+                name="lookingFor"
+                value="video-call-sex-chat"
+              >
+
+              <span class="choice-content">
+                <span class="choice-icon">📹</span>
+
+                <strong>Video Call Sex Chat</strong>
+
+                <small>
+                  Private adult video chat
+                </small>
+              </span>
+            </label>
+
+          </div>
+
+        </div>
+
+
+        <!-- =======================================
+             SUBMIT
+        ======================================== -->
+
+        <button
+          type="submit"
+          class="primary-btn signup-submit"
+        >
+          Create My Account
+        </button>
+
+
+        <p class="login-prompt">
+          Already have an account?
+          <a href="login.html">Log in</a>
+        </p>
+
+      </form>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================================
+       JAVASCRIPT
+  ========================================== -->
+
+  <script src="script.js"></script>
+
+  <script>
+    const signupForm = document.getElementById("signupForm");
+
+    signupForm.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const selectedOptions = document.querySelectorAll(
+        'input[name="lookingFor"]:checked'
+      );
+
+      if (selectedOptions.length === 0) {
+        showMessage(
+          "Please choose at least one option for what you're looking for."
+        );
+        return;
+      }
+
+      showMessage(
+        "Account setup is ready. We'll connect this to the BaddieLink account system next."
+      );
+    });
+  </script>
+
+</body>
+</html>
