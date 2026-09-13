@@ -4,7 +4,347 @@
 :root {
   --bg: #09070d;
   --bg-soft: #110d17;
-  --card: #15101d;
+  --card: #/* =========================================================
+BADDIELINK — MAIN JAVASCRIPT
+========================================================= */
+
+document.addEventListener(“DOMContentLoaded”, () => {
+
+/* =======================================================
+HELPERS
+======================================================= */
+
+function showMessage(message) {
+let toast = document.querySelector(”.toast”);
+
+if (!toast) {
+  toast = document.createElement("div");
+  toast.className = "toast";
+  document.body.appendChild(toast);
+}
+toast.textContent = message;
+toast.classList.add("show");
+clearTimeout(window.baddieToastTimer);
+window.baddieToastTimer = setTimeout(() => {
+  toast.classList.remove("show");
+}, 3000);
+
+}
+
+window.showMessage = showMessage;
+
+/* =======================================================
+SIGNUP FORM
+======================================================= */
+
+const signupForm = document.getElementById(“signupForm”);
+
+if (signupForm) {
+
+signupForm.addEventListener("submit", function (event) {
+  event.preventDefault();
+  const username = document.getElementById("username")?.value.trim();
+  const email = document.getElementById("email")?.value.trim();
+  const password = document.getElementById("password")?.value;
+  const ageConfirm = document.getElementById("ageConfirm");
+  const selectedOptions = document.querySelectorAll(
+    'input[name="lookingFor"]:checked'
+  );
+  /* Validate username */
+  if (!username) {
+    showMessage("Please choose a username.");
+    return;
+  }
+  /* Validate email */
+  if (!email) {
+    showMessage("Please enter your email address.");
+    return;
+  }
+  /* Validate password */
+  if (!password || password.length < 8) {
+    showMessage("Your password must be at least 8 characters.");
+    return;
+  }
+  /* Validate age */
+  if (!ageConfirm || !ageConfirm.checked) {
+    showMessage("You must confirm that you are 18 or older.");
+    return;
+  }
+  /* Validate looking-for choices */
+  if (selectedOptions.length === 0) {
+    showMessage(
+      "Please choose at least one option for what you're looking for."
+    );
+    return;
+  }
+  /* Collect selected options */
+  const lookingFor = Array.from(selectedOptions).map(
+    option => option.value
+  );
+  /* Temporary account object */
+  const account = {
+    username: username,
+    email: email,
+    lookingFor: lookingFor,
+    createdAt: new Date().toISOString()
+  };
+  /*
+    TEMPORARY STORAGE
+    This lets us keep the account information in the browser
+    while we build the real BaddieLink backend/database.
+  */
+  localStorage.setItem(
+    "baddielink_account",
+    JSON.stringify(account)
+  );
+  showMessage("Account created successfully ❤️");
+  setTimeout(() => {
+    window.location.href = "index.html";
+  }, 1200);
+});
+
+}
+
+/* =======================================================
+LOOKING-FOR CARD SELECTION
+======================================================= */
+
+const choiceCards = document.querySelectorAll(”.choice-card”);
+
+choiceCards.forEach(card => {
+
+const checkbox = card.querySelector('input[type="checkbox"]');
+if (!checkbox) return;
+function updateCard() {
+  card.classList.toggle("selected", checkbox.checked);
+}
+checkbox.addEventListener("change", updateCard);
+updateCard();
+
+});
+
+/* =======================================================
+PASSWORD TOGGLE
+======================================================= */
+
+const passwordToggles = document.querySelectorAll(
+“.password-toggle”
+);
+
+passwordToggles.forEach(toggle => {
+
+toggle.addEventListener("click", () => {
+  const targetId = toggle.dataset.target;
+  const input = document.getElementById(targetId);
+  if (!input) return;
+  if (input.type === "password") {
+    input.type = "text";
+    toggle.textContent = "Hide";
+  } else {
+    input.type = "password";
+    toggle.textContent = "Show";
+  }
+});
+
+});
+
+/* =======================================================
+BACK BUTTONS
+======================================================= */
+
+const backButtons = document.querySelectorAll(
+“[data-back], .back-btn”
+);
+
+backButtons.forEach(button => {
+
+button.addEventListener("click", () => {
+  if (button.dataset.back) {
+    window.location.href = button.dataset.back;
+  } else {
+    window.history.back();
+  }
+});
+
+});
+
+/* =======================================================
+MAIN APP NAVIGATION
+======================================================= */
+
+const navButtons = document.querySelectorAll(”.nav-btn”);
+const appViews = document.querySelectorAll(”.app-view”);
+
+navButtons.forEach(button => {
+
+button.addEventListener("click", () => {
+  const target = button.dataset.view;
+  if (!target) return;
+  navButtons.forEach(btn => {
+    btn.classList.remove("active");
+  });
+  button.classList.add("active");
+  appViews.forEach(view => {
+    view.classList.remove("active");
+  });
+  const targetView = document.getElementById(target);
+  if (targetView) {
+    targetView.classList.add("active");
+  }
+});
+
+});
+
+/* =======================================================
+MODALS
+======================================================= */
+
+const modalOpenButtons = document.querySelectorAll(
+“[data-modal]”
+);
+
+modalOpenButtons.forEach(button => {
+
+button.addEventListener("click", () => {
+  const modalId = button.dataset.modal;
+  const modal = document.getElementById(modalId);
+  if (modal) {
+    modal.classList.add("active");
+  }
+});
+
+});
+
+const modalCloseButtons = document.querySelectorAll(
+“.close-btn, [data-close-modal]”
+);
+
+modalCloseButtons.forEach(button => {
+
+button.addEventListener("click", () => {
+  const modal = button.closest(".modal-overlay");
+  if (modal) {
+    modal.classList.remove("active");
+  }
+});
+
+});
+
+document.querySelectorAll(”.modal-overlay”).forEach(overlay => {
+
+overlay.addEventListener("click", event => {
+  if (event.target === overlay) {
+    overlay.classList.remove("active");
+  }
+});
+
+});
+
+/* =======================================================
+INTEREST BUTTONS
+======================================================= */
+
+const interestButtons = document.querySelectorAll(
+“.interest-btn”
+);
+
+interestButtons.forEach(button => {
+
+button.addEventListener("click", () => {
+  button.classList.toggle("selected");
+});
+
+});
+
+/* =======================================================
+LIKE BUTTONS
+======================================================= */
+
+const likeButtons = document.querySelectorAll(”.like-btn”);
+
+likeButtons.forEach(button => {
+
+button.addEventListener("click", () => {
+  button.classList.toggle("liked");
+  if (button.classList.contains("liked")) {
+    button.textContent = "♥";
+    showMessage("Liked ❤️");
+  } else {
+    button.textContent = "♡";
+  }
+});
+
+});
+
+/* =======================================================
+CHAT INPUT
+======================================================= */
+
+const chatRows = document.querySelectorAll(”.chat-input-row”);
+
+chatRows.forEach(row => {
+
+const input = row.querySelector("input");
+const sendButton = row.querySelector("button");
+if (!input || !sendButton) return;
+function sendMessage() {
+  const message = input.value.trim();
+  if (!message) return;
+  const chatMessages =
+    row.parentElement.querySelector(".chat-messages");
+  if (!chatMessages) return;
+  const messageElement =
+    document.createElement("div");
+  messageElement.className = "chat-message sent";
+  messageElement.textContent = message;
+  chatMessages.appendChild(messageElement);
+  input.value = "";
+  chatMessages.scrollTop =
+    chatMessages.scrollHeight;
+}
+sendButton.addEventListener("click", sendMessage);
+input.addEventListener("keydown", event => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    sendMessage();
+  }
+});
+
+});
+
+/* =======================================================
+CLOSE TOAST WHEN CLICKED
+======================================================= */
+
+document.addEventListener(“click”, event => {
+
+if (event.target.classList.contains("toast")) {
+  event.target.classList.remove("show");
+}
+
+});
+
+/* =======================================================
+LOAD SAVED ACCOUNT
+======================================================= */
+
+const savedAccount =
+localStorage.getItem(“baddielink_account”);
+
+if (savedAccount) {
+
+try {
+  window.baddielinkAccount =
+    JSON.parse(savedAccount);
+} catch (error) {
+  console.warn(
+    "Could not read saved BaddieLink account."
+  );
+}
+
+}
+
+});
   --card-2: #1b1424;
   --text: #ffffff;
   --muted: #a9a1b3;
