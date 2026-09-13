@@ -1,49 +1,26 @@
-/* ============================================
-   BADDIELINK
-   Meet. Chat. Vibe.
-   V1 — Mobile-first social dating UI
-============================================ */
-
-/* ============================================
-   01. DESIGN SYSTEM
-============================================ */
-
 :root {
-  --bg: #09070d;
-  --bg-soft: #100c16;
-  --card: #15101c;
-  --card-light: #1d1626;
-  --border: rgba(255, 255, 255, 0.08);
+  --bg: #09070b;
+  --bg-soft: #100c13;
+  --card: rgba(24, 18, 29, 0.82);
+  --card-light: rgba(255, 255, 255, 0.055);
+  --border: rgba(255, 255, 255, 0.10);
 
   --pink: #ff3f91;
-  --pink-light: #ff72ae;
-  --pink-dark: #d91f70;
-
-  --purple: #8d4dff;
-
+  --pink-light: #ff78b5;
+  --purple: #9d5cff;
   --white: #ffffff;
-  --text: #f8f5fa;
-  --muted: #a49baa;
-  --muted-dark: #746b79;
+  --muted: #aaa1ad;
+  --muted-light: #d4cbd6;
 
-  --green: #35e39b;
-  --yellow: #ffc857;
-  --danger: #ff5576;
-
-  --radius-sm: 12px;
+  --radius-lg: 28px;
   --radius-md: 18px;
-  --radius-lg: 26px;
-  --radius-xl: 32px;
 
-  --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
-
-  --font-body: "DM Sans", sans-serif;
-  --font-display: "Outfit", sans-serif;
+  --shadow: 0 25px 80px rgba(0, 0, 0, 0.45);
 }
 
 
 /* ============================================
-   02. RESET
+   RESET
 ============================================ */
 
 * {
@@ -58,398 +35,373 @@ html {
 
 body {
   min-height: 100vh;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
+
+  color: var(--white);
   background:
-    radial-gradient(circle at 20% 10%, rgba(255, 63, 145, 0.08), transparent 28%),
-    radial-gradient(circle at 90% 80%, rgba(141, 77, 255, 0.07), transparent 30%),
+    radial-gradient(
+      circle at 15% 10%,
+      rgba(255, 63, 145, 0.16),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 85% 20%,
+      rgba(157, 92, 255, 0.14),
+      transparent 28%
+    ),
     var(--bg);
 
-  color: var(--text);
-  font-family: var(--font-body);
+  overflow-x: hidden;
+}
 
-  -webkit-font-smoothing: antialiased;
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      circle at 50% 100%,
+      rgba(255, 63, 145, 0.08),
+      transparent 35%
+    );
+
+  z-index: -1;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
 button,
-input,
-textarea,
-select {
+input {
   font: inherit;
 }
 
-button {
-  border: 0;
-  cursor: pointer;
-}
-
-img {
-  max-width: 100%;
-  display: block;
-}
-
-.hidden-view {
-  display: none !important;
-}
-
 
 /* ============================================
-   03. APP SHELL
+   NAVBAR
 ============================================ */
 
-.app-shell {
-  width: 100%;
-  min-height: 100vh;
-  overflow: hidden;
-  position: relative;
-}
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
 
-.screen {
   width: 100%;
-  min-height: 100vh;
-  display: none;
-  position: relative;
-}
+  padding: 20px 6%;
 
-.screen.active {
   display: flex;
-}
-
-
-/* ============================================
-   04. WELCOME SCREEN
-============================================ */
-
-.welcome-screen {
-  min-height: 100svh;
   align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  padding: 28px 20px;
+  justify-content: space-between;
+
+  background: rgba(9, 7, 11, 0.72);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.welcome-content {
-  width: min(100%, 460px);
-  position: relative;
-  z-index: 2;
-  text-align: center;
-}
-
-.welcome-glow {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  pointer-events: none;
-}
-
-.glow-one {
-  width: 240px;
-  height: 240px;
-  background: rgba(255, 63, 145, 0.13);
-  top: -60px;
-  left: -80px;
-}
-
-.glow-two {
-  width: 260px;
-  height: 260px;
-  background: rgba(141, 77, 255, 0.11);
-  bottom: -80px;
-  right: -80px;
-}
-
-
-/* ============================================
-   05. BRANDING
-============================================ */
-
-.brand-mark {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  margin-bottom: 25px;
-}
-
-.heart-logo {
-  width: 38px;
-  height: 38px;
-  display: grid;
-  place-items: center;
-
-  color: var(--pink);
-  border: 1px solid rgba(255, 63, 145, 0.3);
-  border-radius: 12px;
-
-  font-size: 27px;
-  line-height: 1;
-
-  background: rgba(255, 63, 145, 0.07);
-  box-shadow: 0 0 30px rgba(255, 63, 145, 0.12);
-}
-
-.brand-name {
-  font-family: var(--font-display);
-  font-size: 25px;
-  font-weight: 800;
+.logo {
+  font-size: 1.45rem;
+  font-weight: 900;
   letter-spacing: -0.8px;
 }
 
-.brand-name span {
+.logo span {
   color: var(--pink);
 }
 
-.mini-brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
+.back-link {
+  color: var(--muted-light);
+  font-size: 0.9rem;
+  font-weight: 600;
 
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 18px;
+  padding: 10px 16px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+
+  transition: 0.25s ease;
 }
 
-.mini-brand span {
-  color: var(--pink);
-  font-size: 25px;
+.back-link:hover {
+  color: white;
+  border-color: rgba(255, 63, 145, 0.45);
+  background: rgba(255, 63, 145, 0.08);
 }
 
 
 /* ============================================
-   06. WELCOME IMAGE
+   SIGNUP PAGE
 ============================================ */
 
-.welcome-image {
-  width: 100%;
-  height: 390px;
+.signup-page {
+  min-height: 100vh;
+}
 
+.signup-container {
+  width: 100%;
+  padding: 55px 20px 80px;
+
+  display: flex;
+  justify-content: center;
+}
+
+.signup-card {
   position: relative;
-  overflow: hidden;
 
-  border-radius: var(--radius-xl);
-  border: 1px solid var(--border);
-
-  box-shadow: var(--shadow);
-}
-
-.welcome-image img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+  max-width: 680px;
 
-.image-overlay {
-  position: absolute;
-  inset: 0;
+  padding: 34px;
 
   background:
     linear-gradient(
-      to top,
-      rgba(9, 7, 13, 0.88),
-      rgba(9, 7, 13, 0.04) 55%
+      145deg,
+      rgba(255, 255, 255, 0.07),
+      rgba(255, 255, 255, 0.025)
     );
+
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: var(--radius-lg);
+
+  box-shadow: var(--shadow);
+
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+
+  overflow: hidden;
 }
 
-.floating-badge {
+.signup-card::before {
+  content: "";
+
   position: absolute;
 
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
+  width: 250px;
+  height: 250px;
 
-  padding: 9px 12px;
+  top: -130px;
+  right: -80px;
 
-  background: rgba(12, 9, 16, 0.75);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 63, 145, 0.16);
 
-  border-radius: 100px;
-
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.badge-online {
-  top: 15px;
-  left: 15px;
-}
-
-.badge-location {
-  bottom: 15px;
-  right: 15px;
-}
-
-.online-dot {
-  width: 7px;
-  height: 7px;
-  background: var(--green);
+  filter: blur(70px);
   border-radius: 50%;
-  box-shadow: 0 0 10px rgba(53, 227, 155, 0.7);
+
+  pointer-events: none;
 }
 
 
 /* ============================================
-   07. WELCOME TEXT
+   HEADING
 ============================================ */
 
-.welcome-text {
-  margin: 27px 5px 22px;
+.signup-heading {
+  position: relative;
+  z-index: 2;
+
+  text-align: center;
+
+  margin-bottom: 38px;
 }
 
-.welcome-text h1 {
-  font-family: var(--font-display);
-  font-size: clamp(38px, 10vw, 54px);
-  line-height: 1;
-  letter-spacing: -2px;
+.eyebrow {
+  display: inline-block;
+
+  margin-bottom: 14px;
+
+  color: var(--pink-light);
+
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 2px;
 }
 
-.welcome-text h1 span {
-  color: var(--pink);
+.signup-heading h1 {
+  font-size: clamp(2rem, 7vw, 3.1rem);
+  line-height: 1.05;
+  letter-spacing: -1.8px;
+
+  margin-bottom: 14px;
 }
 
-.welcome-text p {
-  max-width: 370px;
-  margin: 15px auto 0;
+.signup-heading p {
+  max-width: 460px;
+  margin: 0 auto;
 
   color: var(--muted);
-  font-size: 14px;
-  line-height: 1.65;
+  font-size: 0.95rem;
+  line-height: 1.7;
 }
 
 
 /* ============================================
-   08. BUTTONS
+   FORM SECTIONS
 ============================================ */
 
-.primary-btn {
+.form-section {
+  position: relative;
+  z-index: 2;
+
+  margin-bottom: 34px;
+}
+
+.form-section h2 {
+  margin-bottom: 17px;
+
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+}
+
+.section-description {
+  margin-top: -7px;
+  margin-bottom: 18px;
+
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+
+/* ============================================
+   INPUTS
+============================================ */
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: var(--muted-light);
+
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.form-group input {
   width: 100%;
-  min-height: 54px;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
+  height: 56px;
 
-  padding: 14px 20px;
+  padding: 0 17px;
 
   color: white;
-  background: linear-gradient(
-    135deg,
-    var(--pink),
-    var(--pink-dark)
-  );
-
-  border-radius: 15px;
-
-  font-weight: 700;
-  font-size: 14px;
-
-  box-shadow:
-    0 12px 30px rgba(255, 63, 145, 0.2);
-
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    filter 0.2s ease;
-}
-
-.primary-btn:hover {
-  transform: translateY(-2px);
-  box-shadow:
-    0 16px 38px rgba(255, 63, 145, 0.28);
-}
-
-.primary-btn:active {
-  transform: scale(0.98);
-}
-
-.primary-btn span {
-  font-size: 19px;
-}
-
-.secondary-btn {
-  width: 100%;
-  min-height: 54px;
-
-  margin-top: 10px;
-
-  color: var(--text);
-  background: rgba(255, 255, 255, 0.055);
+  background: rgba(255, 255, 255, 0.045);
 
   border: 1px solid var(--border);
   border-radius: 15px;
 
-  font-weight: 700;
+  outline: none;
 
-  transition: background 0.2s ease;
+  transition: 0.25s ease;
 }
 
-.secondary-btn:hover {
-  background: rgba(255, 255, 255, 0.09);
+.form-group input::placeholder {
+  color: #706873;
 }
 
-.full-btn {
-  margin-top: 18px;
+.form-group input:focus {
+  border-color: rgba(255, 63, 145, 0.7);
+
+  background: rgba(255, 63, 145, 0.045);
+
+  box-shadow:
+    0 0 0 4px rgba(255, 63, 145, 0.08),
+    0 0 30px rgba(255, 63, 145, 0.08);
 }
 
-.text-btn {
-  margin-top: 17px;
+.form-group small {
+  display: block;
 
-  background: transparent;
-  color: var(--muted);
+  margin-top: 7px;
 
-  font-size: 13px;
-}
-
-.text-btn:hover {
-  color: white;
+  color: #766d78;
+  font-size: 0.7rem;
 }
 
 
 /* ============================================
-   09. ADULT NOTE
+   AGE CHECKBOX
 ============================================ */
 
-.adult-note {
-  margin-top: 18px;
+.checkbox-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+
+  padding: 16px;
+
+  color: var(--muted-light);
+
+  background: rgba(255, 255, 255, 0.035);
+
+  border: 1px solid var(--border);
+  border-radius: 15px;
+
+  cursor: pointer;
+
+  font-size: 0.82rem;
+  line-height: 1.5;
+
+  transition: 0.25s ease;
+}
+
+.checkbox-option:hover {
+  border-color: rgba(255, 63, 145, 0.35);
+}
+
+.checkbox-option input {
+  width: 18px;
+  height: 18px;
+
+  margin-top: 1px;
+
+  accent-color: var(--pink);
+}
+
+
+/* ============================================
+   LOOKING FOR CARDS
+============================================ */
+
+.choice-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.choice-card {
+  position: relative;
+
+  display: block;
+
+  cursor: pointer;
+}
+
+.choice-card input {
+  position: absolute;
+
+  opacity: 0;
+  pointer-events: none;
+}
+
+.choice-content {
+  min-height: 125px;
+
+  padding: 19px;
 
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-  gap: 7px;
-
-  color: var(--muted-dark);
-
-  font-size: 11px;
-}
-
-.adult-note span {
-  padding: 3px 6px;
-
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 6px;
-
-  color: var(--muted);
-  font-weight: 700;
-}
-
-
-/* ============================================
-   10. CENTERED SCREENS
-============================================ */
-
-.centered-screen {
-  align-items: center;
-  justify-content: center;
-
-  padding: 24px 20px;
-}
-
-.age-card {
-  width: min(100%, 430px);
-
-  padding: 35px 24px;
-
-  text-align: center;
 
   background:
     linear-gradient(
@@ -459,2086 +411,290 @@ img {
     );
 
   border: 1px solid var(--border);
-  border-radius: var(--radius-xl);
-
-  box-shadow: var(--shadow);
-}
-
-.age-circle {
-  width: 94px;
-  height: 94px;
-
-  margin: 0 auto 25px;
-
-  display: grid;
-  place-items: center;
-
-  color: var(--pink);
-
-  border: 1px solid rgba(255, 63, 145, 0.3);
-  border-radius: 50%;
-
-  background: rgba(255, 63, 145, 0.08);
-
-  font-family: var(--font-display);
-  font-size: 28px;
-  font-weight: 800;
-
-  box-shadow:
-    0 0 45px rgba(255, 63, 145, 0.1);
-}
-
-.age-card h2,
-.form-heading h2,
-.page-heading h2 {
-  font-family: var(--font-display);
-  font-size: 29px;
-  letter-spacing: -1px;
-}
-
-.age-card > p {
-  margin: 13px auto 22px;
-
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.65;
-}
-
-.age-check {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-
-  margin-bottom: 17px;
-
-  padding: 13px;
-
-  text-align: left;
-
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--border);
-  border-radius: 13px;
-
-  color: #ddd5df;
-  font-size: 12px;
-}
-
-.age-check span {
-  width: 22px;
-  height: 22px;
-
-  display: grid;
-  place-items: center;
-
-  flex-shrink: 0;
-
-  color: var(--green);
-  border: 1px solid rgba(53, 227, 155, 0.3);
-  border-radius: 7px;
-  background: rgba(53, 227, 155, 0.08);
-}
-
-.age-card small {
-  display: block;
-
-  margin-top: 22px;
-
-  color: var(--muted-dark);
-  font-size: 10px;
-  line-height: 1.5;
-}
-
-
-/* ============================================
-   11. BACK BUTTON
-============================================ */
-
-.back-btn {
-  position: absolute;
-  top: 25px;
-  left: 20px;
-
-  width: 42px;
-  height: 42px;
-
-  display: grid;
-  place-items: center;
-
-  color: white;
-  background: rgba(255, 255, 255, 0.05);
-
-  border: 1px solid var(--border);
-  border-radius: 13px;
-
-  font-size: 20px;
-}
-
-
-/* ============================================
-   12. FORM SCREENS
-============================================ */
-
-.form-screen {
-  justify-content: center;
-  align-items: flex-start;
-
-  padding: 80px 20px 40px;
-}
-
-.form-wrapper {
-  width: min(100%, 450px);
-}
-
-.form-wrapper .mini-brand {
-  margin-bottom: 25px;
-}
-
-.form-heading {
-  margin-bottom: 25px;
-}
-
-.form-heading p {
-  margin-top: 7px;
-
-  color: var(--muted);
-  font-size: 13px;
-}
-
-.form-wrapper form {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-wrapper label {
-  margin: 0 0 8px;
-
-  color: #d9d2dc;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.form-wrapper input,
-.form-wrapper select,
-.form-wrapper textarea {
-  width: 100%;
-
-  margin-bottom: 17px;
-  padding: 14px 15px;
-
-  outline: none;
-
-  color: var(--text);
-  background: rgba(255, 255, 255, 0.045);
-
-  border: 1px solid var(--border);
-  border-radius: 13px;
-
-  font-size: 13px;
+  border-radius: 18px;
 
   transition:
-    border-color 0.2s ease,
-    background 0.2s ease;
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
-.form-wrapper input::placeholder,
-.form-wrapper textarea::placeholder {
-  color: var(--muted-dark);
+.choice-card:hover .choice-content {
+  transform: translateY(-3px);
+
+  border-color: rgba(255, 63, 145, 0.4);
+
+  background: rgba(255, 63, 145, 0.055);
 }
 
-.form-wrapper input:focus,
-.form-wrapper select:focus,
-.form-wrapper textarea:focus {
-  border-color: rgba(255, 63, 145, 0.55);
-  background: rgba(255, 63, 145, 0.035);
+.choice-card input:checked + .choice-content {
+  border-color: var(--pink);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 63, 145, 0.16),
+      rgba(157, 92, 255, 0.08)
+    );
+
+  box-shadow:
+    0 0 0 1px rgba(255, 63, 145, 0.15),
+    0 12px 35px rgba(255, 63, 145, 0.12);
 }
 
-.form-wrapper select {
-  appearance: none;
-}
-
-.form-wrapper textarea {
-  min-height: 115px;
-  resize: vertical;
-}
-
-.password-field {
-  position: relative;
-}
-
-.password-field input {
-  padding-right: 60px;
-}
-
-.password-field button {
-  position: absolute;
-  right: 12px;
-  top: 11px;
-
-  color: var(--pink);
-  background: transparent;
-
-  font-size: 11px;
-  font-weight: 700;
-}
-
-.form-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  margin-top: -2px;
-}
-
-.remember {
-  display: flex !important;
-  align-items: center;
-  gap: 7px;
-
-  margin: 0 !important;
-}
-
-.remember input {
-  width: auto;
-  margin: 0;
-  accent-color: var(--pink);
-}
-
-.forgot-btn {
-  color: var(--pink);
-  background: transparent;
-  font-size: 11px;
-}
-
-.form-divider {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-
-  margin: 22px 0;
-
-  color: var(--muted-dark);
-  font-size: 11px;
-}
-
-.form-divider::before,
-.form-divider::after {
-  content: "";
-  height: 1px;
-  flex: 1;
-
-  background: var(--border);
-}
-
-.social-btn {
-  width: 100%;
-  min-height: 52px;
-
-  color: white;
-  background: rgba(255, 255, 255, 0.045);
-
-  border: 1px solid var(--border);
-  border-radius: 14px;
-
-  font-weight: 600;
-  font-size: 13px;
-}
-
-.switch-form {
-  margin-top: 22px;
-
-  text-align: center;
-
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.switch-form button {
-  margin-left: 3px;
-
-  color: var(--pink);
-  background: transparent;
-
-  font-weight: 700;
-}
-
-.terms-text {
-  margin-top: 20px;
-
-  text-align: center;
-
-  color: var(--muted-dark);
-  font-size: 10px;
-  line-height: 1.5;
-}
-
-
-/* ============================================
-   13. PROGRESS
-============================================ */
-
-.progress {
-  display: flex;
-  gap: 6px;
-
-  margin-bottom: 25px;
-}
-
-.progress span {
-  width: 45px;
-  height: 4px;
-
-  border-radius: 100px;
-
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.progress .progress-active {
-  background: var(--pink);
-}
-
-
-/* ============================================
-   14. PROFILE SETUP
-============================================ */
-
-.photo-upload {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-
-  margin-bottom: 23px;
-  padding: 14px;
-
-  border: 1px dashed rgba(255, 63, 145, 0.3);
-  border-radius: 16px;
-
-  background: rgba(255, 63, 145, 0.035);
-}
-
-.upload-circle {
-  width: 62px;
-  height: 62px;
-
-  display: grid;
-  place-items: center;
-
-  flex-shrink: 0;
-
-  border-radius: 50%;
-
-  background: rgba(255, 63, 145, 0.09);
-  border: 1px solid rgba(255, 63, 145, 0.25);
-
-  color: var(--pink);
-  font-size: 28px;
-}
-
-.photo-upload strong {
-  display: block;
-  font-size: 13px;
-}
-
-.photo-upload small {
+.choice-icon {
   display: block;
 
-  margin-top: 4px;
+  margin-bottom: 12px;
 
-  color: var(--muted);
-  font-size: 11px;
+  font-size: 1.55rem;
 }
 
-.interest-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+.choice-content strong {
+  display: block;
+
+  font-size: 0.9rem;
+  font-weight: 800;
 
   margin-bottom: 5px;
 }
 
-.interest-list button {
-  padding: 8px 12px;
-
+.choice-content small {
   color: var(--muted);
 
-  background: rgba(255, 255, 255, 0.045);
-
-  border: 1px solid var(--border);
-  border-radius: 100px;
-
-  font-size: 11px;
-
-  transition: all 0.2s ease;
-}
-
-.interest-list button:hover,
-.interest-list button.selected {
-  color: white;
-
-  background: rgba(255, 63, 145, 0.12);
-  border-color: rgba(255, 63, 145, 0.4);
+  font-size: 0.72rem;
+  line-height: 1.4;
 }
 
 
 /* ============================================
-   15. MAIN APP
+   PRIMARY BUTTON
 ============================================ */
 
-.app-screen {
-  min-height: 100svh;
-
-  display: flex;
-  flex-direction: column;
-
-  background:
-    radial-gradient(
-      circle at 85% 5%,
-      rgba(255, 63, 145, 0.07),
-      transparent 25%
-    ),
-    var(--bg);
-}
-
-.app-header {
-  width: 100%;
-  max-width: 1100px;
-
-  margin: 0 auto;
-
-  padding: 18px 18px 10px;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.coin-pill {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-
-  padding: 8px 12px;
-
-  color: #eee;
-
-  background: rgba(255, 255, 255, 0.055);
-
-  border: 1px solid var(--border);
-  border-radius: 100px;
-
-  font-size: 12px;
-}
-
-.coin-pill strong {
-  color: var(--yellow);
-}
-
-
-/* ============================================
-   16. APP CONTENT
-============================================ */
-
-.app-content {
-  width: 100%;
-  max-width: 1100px;
-
-  margin: 0 auto;
-
-  padding: 18px 18px 105px;
-}
-
-.discover-heading,
-.page-heading,
-.section-title-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.eyebrow {
-  margin-bottom: 4px;
-
-  color: var(--pink);
-
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 1.5px;
-}
-
-.discover-heading h2,
-.page-heading h2 {
-  font-family: var(--font-display);
-  font-size: 25px;
-  letter-spacing: -0.8px;
-}
-
-.filter-btn,
-.icon-btn {
-  width: 40px;
-  height: 40px;
-
-  display: grid;
-  place-items: center;
-
-  color: #ddd;
-
-  background: rgba(255, 255, 255, 0.05);
-
-  border: 1px solid var(--border);
-  border-radius: 12px;
-}
-
-
-/* ============================================
-   17. LOCATION BANNER
-============================================ */
-
-.location-banner {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-
-  margin: 16px 0;
-
-  padding: 11px 13px;
-
-  background: rgba(255, 255, 255, 0.035);
-
-  border: 1px solid var(--border);
-  border-radius: 14px;
-}
-
-.location-banner > span:first-child {
-  font-size: 17px;
-}
-
-.location-banner div {
-  flex: 1;
-}
-
-.location-banner strong {
-  display: block;
-  font-size: 11px;
-}
-
-.location-banner small {
-  display: block;
-
-  margin-top: 2px;
-
-  color: var(--muted);
-  font-size: 9px;
-}
-
-.green-check {
-  color: var(--green);
-}
-
-
-/* ============================================
-   18. PROFILE CARD
-============================================ */
-
-.profile-card {
-  width: 100%;
-  max-width: 560px;
-
-  margin: 0 auto;
-}
-
-.profile-image-wrapper {
-  height: min(65svh, 590px);
-
+.primary-btn {
   position: relative;
-  overflow: hidden;
+  z-index: 2;
 
-  border-radius: 25px;
-
-  border: 1px solid var(--border);
-
-  background: var(--card);
-
-  box-shadow: var(--shadow);
-}
-
-.profile-image-wrapper > img {
   width: 100%;
-  height: 100%;
+  min-height: 57px;
 
-  object-fit: cover;
-}
+  border: none;
+  border-radius: 999px;
 
-.profile-gradient {
-  position: absolute;
-  inset: 0;
+  color: white;
 
   background:
     linear-gradient(
-      to top,
-      rgba(8, 5, 12, 0.96) 0%,
-      rgba(8, 5, 12, 0.18) 55%,
-      rgba(8, 5, 12, 0.02) 100%
+      110deg,
+      #ff3f91,
+      #ff4f9c 50%,
+      #a25cff
     );
-}
-
-.online-label {
-  position: absolute;
-  top: 15px;
-  left: 15px;
-
-  display: flex;
-  align-items: center;
-  gap: 6px;
-
-  padding: 7px 10px;
-
-  background: rgba(8, 5, 12, 0.68);
-  backdrop-filter: blur(15px);
-
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  border-radius: 100px;
-
-  font-size: 10px;
-  font-weight: 600;
-}
-
-.online-label span {
-  width: 6px;
-  height: 6px;
-
-  border-radius: 50%;
-
-  background: var(--green);
-  box-shadow: 0 0 10px rgba(53, 227, 155, 0.8);
-}
-
-.more-btn {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-
-  width: 37px;
-  height: 37px;
-
-  color: white;
-
-  background: rgba(8, 5, 12, 0.62);
-
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 50%;
-
-  backdrop-filter: blur(15px);
-}
-
-.profile-card-info {
-  position: absolute;
-  left: 20px;
-  right: 20px;
-  bottom: 20px;
-}
-
-.profile-name-row {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-}
-
-.profile-name-row h3 {
-  font-family: var(--font-display);
-  font-size: 28px;
-  letter-spacing: -0.7px;
-}
-
-.verified {
-  width: 18px;
-  height: 18px;
-
-  display: inline-grid;
-  place-items: center;
-
-  color: white;
-  background: var(--pink);
-
-  border-radius: 50%;
-
-  font-size: 10px;
-  font-weight: 800;
-}
-
-.profile-card-info > p {
-  margin: 4px 0 9px;
-
-  color: #d2cbd5;
-
-  font-size: 11px;
-}
-
-.profile-status {
-  display: inline-block;
-
-  padding: 7px 10px;
-
-  background: rgba(255, 255, 255, 0.07);
-
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 100px;
-
-  color: #e7e1e8;
-  font-size: 10px;
-}
-
-
-/* ============================================
-   19. PROFILE ACTIONS
-============================================ */
-
-.profile-actions {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-
-  padding: 17px 0 7px;
-}
-
-.action-circle {
-  width: 57px;
-  height: 57px;
-
-  display: grid;
-  place-items: center;
-
-  border-radius: 50%;
-
-  border: 1px solid var(--border);
-
-  font-size: 20px;
-
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-.action-circle:hover {
-  transform: translateY(-3px);
-}
-
-.pass-action {
-  color: #d5cbd6;
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.like-action {
-  width: 67px;
-  height: 67px;
-
-  color: white;
-
-  background: linear-gradient(
-    135deg,
-    var(--pink),
-    var(--pink-dark)
-  );
 
   box-shadow:
-    0 10px 30px rgba(255, 63, 145, 0.25);
-}
+    0 12px 35px rgba(255, 63, 145, 0.22);
 
-.chat-action {
-  color: white;
-  background: rgba(255, 255, 255, 0.07);
-}
+  font-size: 0.9rem;
+  font-weight: 800;
 
-
-/* ============================================
-   20. MINI PROFILES
-============================================ */
-
-.section-title-row {
-  margin: 26px 0 13px;
-}
-
-.section-title-row h3 {
-  font-family: var(--font-display);
-  font-size: 16px;
-}
-
-.section-title-row button {
-  color: var(--pink);
-  background: transparent;
-  font-size: 11px;
-  font-weight: 700;
-}
-
-.mini-profiles {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-}
-
-.mini-profile {
-  min-width: 0;
-}
-
-.mini-image {
-  height: 130px;
-
-  position: relative;
-  overflow: hidden;
-
-  border-radius: 16px;
-
-  border: 1px solid var(--border);
-}
-
-.mini-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.mini-image > span {
-  position: absolute;
-  right: 8px;
-  bottom: 8px;
-
-  width: 8px;
-  height: 8px;
-
-  background: var(--green);
-
-  border-radius: 50%;
-
-  border: 2px solid #130e18;
-}
-
-.mini-profile strong {
-  display: block;
-
-  margin-top: 7px;
-
-  font-size: 11px;
-}
-
-.mini-profile small {
-  display: block;
-
-  margin-top: 2px;
-
-  color: var(--muted);
-
-  font-size: 9px;
-}
-
-
-/* ============================================
-   21. MESSAGES
-============================================ */
-
-.page-heading {
-  margin-bottom: 18px;
-}
-
-.message-search {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  padding: 12px 13px;
-
-  background: rgba(255, 255, 255, 0.045);
-
-  border: 1px solid var(--border);
-  border-radius: 13px;
-
-  color: var(--muted);
-}
-
-.message-search input {
-  width: 100%;
-
-  border: 0;
-  outline: 0;
-
-  background: transparent;
-  color: white;
-
-  font-size: 12px;
-}
-
-.message-search input::placeholder {
-  color: var(--muted-dark);
-}
-
-.message-tabs {
-  display: flex;
-  gap: 7px;
-
-  margin: 17px 0;
-}
-
-.message-tabs button {
-  padding: 7px 12px;
-
-  color: var(--muted);
-
-  background: transparent;
-
-  border: 1px solid var(--border);
-  border-radius: 100px;
-
-  font-size: 10px;
-}
-
-.message-tabs button.active {
-  color: white;
-
-  background: rgba(255, 63, 145, 0.12);
-
-  border-color: rgba(255, 63, 145, 0.35);
-}
-
-.conversation-list {
-  display: flex;
-  flex-direction: column;
-}
-
-.conversation {
-  display: flex;
-  align-items: center;
-  gap: 11px;
-
-  padding: 13px 0;
-
-  border-bottom: 1px solid rgba(255, 255, 255, 0.055);
-}
-
-.conversation-image {
-  width: 53px;
-  height: 53px;
-
-  position: relative;
-  flex-shrink: 0;
-}
-
-.conversation-image img {
-  width: 100%;
-  height: 100%;
-
-  object-fit: cover;
-
-  border-radius: 50%;
-}
-
-.conversation-image > span {
-  position: absolute;
-
-  right: 0;
-  bottom: 1px;
-
-  width: 11px;
-  height: 11px;
-
-  background: var(--green);
-
-  border: 2px solid var(--bg);
-
-  border-radius: 50%;
-}
-
-.conversation-info {
-  flex: 1;
-  min-width: 0;
-}
-
-.conversation-info strong {
-  font-size: 13px;
-}
-
-.conversation-info p {
-  margin-top: 4px;
-
-  color: var(--muted);
-
-  font-size: 10px;
-
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.conversation-meta {
-  text-align: right;
-}
-
-.conversation-meta small {
-  display: block;
-
-  color: var(--muted-dark);
-  font-size: 8px;
-}
-
-.conversation-meta b {
-  width: 17px;
-  height: 17px;
-
-  display: inline-grid;
-  place-items: center;
-
-  margin-top: 6px;
-
-  color: white;
-  background: var(--pink);
-
-  border-radius: 50%;
-
-  font-size: 8px;
-}
-
-
-/* ============================================
-   22. GIFTS
-============================================ */
-
-.gift-hero {
-  margin: 17px 0;
-
-  padding: 25px 20px;
-
-  text-align: center;
-
-  background:
-    radial-gradient(
-      circle at 50% 0%,
-      rgba(255, 63, 145, 0.12),
-      transparent 65%
-    ),
-    rgba(255, 255, 255, 0.035);
-
-  border: 1px solid var(--border);
-  border-radius: 22px;
-}
-
-.gift-icon {
-  font-size: 45px;
-  margin-bottom: 9px;
-}
-
-.gift-hero h3 {
-  font-family: var(--font-display);
-  font-size: 19px;
-}
-
-.gift-hero p {
-  max-width: 300px;
-
-  margin: 7px auto 0;
-
-  color: var(--muted);
-
-  font-size: 11px;
-  line-height: 1.6;
-}
-
-.gift-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-}
-
-.gift-item {
-  padding: 19px 10px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  color: white;
-
-  background: rgba(255, 255, 255, 0.035);
-
-  border: 1px solid var(--border);
-  border-radius: 17px;
+  cursor: pointer;
 
   transition:
-    transform 0.2s ease,
-    border-color 0.2s ease;
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    filter 0.25s ease;
 }
 
-.gift-item:hover {
-  transform: translateY(-3px);
+.primary-btn:hover {
+  transform: translateY(-2px);
 
-  border-color: rgba(255, 63, 145, 0.3);
+  box-shadow:
+    0 17px 45px rgba(255, 63, 145, 0.32);
+
+  filter: brightness(1.08);
 }
 
-.gift-item span {
-  font-size: 31px;
-  margin-bottom: 8px;
-}
-
-.gift-item strong {
-  font-size: 11px;
-}
-
-.gift-item small {
-  margin-top: 4px;
-
-  color: var(--yellow);
-
-  font-size: 9px;
-  font-weight: 700;
+.primary-btn:active {
+  transform: scale(0.98);
 }
 
 
 /* ============================================
-   23. WALLET
+   LOGIN PROMPT
 ============================================ */
 
-.wallet-card {
-  margin-top: 17px;
-  padding: 22px;
-
-  border-radius: 23px;
-
-  background:
-    radial-gradient(
-      circle at 90% 0%,
-      rgba(255, 63, 145, 0.22),
-      transparent 45%
-    ),
-    linear-gradient(
-      135deg,
-      #211426,
-      #120d17
-    );
-
-  border: 1px solid rgba(255, 255, 255, 0.08);
-
-  box-shadow: var(--shadow);
-}
-
-.wallet-top {
-  display: flex;
-  align-items: center;
-  gap: 13px;
-}
-
-.wallet-coin {
-  width: 49px;
-  height: 49px;
-
-  display: grid;
-  place-items: center;
-
-  background: rgba(255, 200, 87, 0.1);
-
-  border: 1px solid rgba(255, 200, 87, 0.2);
-
-  border-radius: 15px;
-
-  font-size: 24px;
-}
-
-.wallet-top small {
-  display: block;
-
-  color: var(--muted);
-
-  font-size: 9px;
-}
-
-.wallet-top h3 {
-  margin-top: 2px;
-
-  font-family: var(--font-display);
-  font-size: 29px;
-}
-
-.wallet-card > p {
-  margin: 17px 0;
-
-  color: var(--muted);
-
-  font-size: 11px;
-  line-height: 1.6;
-}
-
-.wallet-card .primary-btn {
-  min-height: 48px;
-}
-
-.sub-heading {
-  margin: 26px 0 11px;
-
-  font-family: var(--font-display);
-  font-size: 15px;
-}
-
-.transaction {
-  display: flex;
-  align-items: center;
-  gap: 11px;
-
-  padding: 13px 0;
-
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.transaction > span {
-  width: 39px;
-  height: 39px;
-
-  display: grid;
-  place-items: center;
-
-  background: rgba(255, 255, 255, 0.05);
-
-  border-radius: 12px;
-}
-
-.transaction div {
-  flex: 1;
-}
-
-.transaction strong {
-  display: block;
-
-  font-size: 11px;
-}
-
-.transaction small {
-  display: block;
-
-  margin-top: 3px;
-
-  color: var(--muted-dark);
-  font-size: 8px;
-}
-
-.transaction > b {
-  color: var(--green);
-  font-size: 11px;
-}
-
-
-/* ============================================
-   24. MY PROFILE
-============================================ */
-
-.my-profile-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-
-  margin-bottom: 15px;
-}
-
-.my-avatar {
-  width: 64px;
-  height: 64px;
-
+.login-prompt {
   position: relative;
-}
+  z-index: 2;
 
-.my-avatar img {
-  width: 100%;
-  height: 100%;
+  margin-top: 20px;
 
-  object-fit: cover;
-
-  border-radius: 50%;
-
-  border: 2px solid rgba(255, 63, 145, 0.35);
-}
-
-.my-avatar span {
-  position: absolute;
-  right: 2px;
-  bottom: 3px;
-
-  width: 12px;
-  height: 12px;
-
-  background: var(--green);
-
-  border: 2px solid var(--bg);
-
-  border-radius: 50%;
-}
-
-.my-profile-header > div:nth-child(2) {
-  flex: 1;
-}
-
-.my-profile-header h2 {
-  font-family: var(--font-display);
-  font-size: 18px;
-}
-
-.my-profile-header p {
-  margin-top: 3px;
-
-  color: var(--muted);
-  font-size: 10px;
-}
-
-.edit-profile-btn {
-  width: 100%;
-
-  padding: 10px;
-
-  color: white;
-  background: rgba(255, 255, 255, 0.045);
-
-  border: 1px solid var(--border);
-  border-radius: 11px;
-
-  font-size: 11px;
-  font-weight: 600;
-}
-
-.profile-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-
-  margin: 18px 0;
-
-  padding: 15px 5px;
-
-  background: rgba(255, 255, 255, 0.035);
-
-  border: 1px solid var(--border);
-  border-radius: 15px;
-}
-
-.profile-stats div {
   text-align: center;
 
-  border-right: 1px solid var(--border);
-}
-
-.profile-stats div:last-child {
-  border-right: 0;
-}
-
-.profile-stats strong {
-  display: block;
-
-  font-family: var(--font-display);
-  font-size: 18px;
-}
-
-.profile-stats small {
-  display: block;
-
-  margin-top: 2px;
-
   color: var(--muted);
-  font-size: 8px;
+
+  font-size: 0.78rem;
 }
 
-.profile-menu {
-  display: flex;
-  flex-direction: column;
-}
-
-.profile-menu button {
-  min-height: 51px;
-
-  display: flex;
-  align-items: center;
-  gap: 11px;
-
-  color: #ded7e0;
-
-  background: transparent;
-
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-
-  text-align: left;
-
-  font-size: 11px;
-}
-
-.profile-menu button span {
-  width: 30px;
-}
-
-.profile-menu button b {
-  margin-left: auto;
-
-  color: var(--muted-dark);
-
-  font-size: 19px;
-  font-weight: 400;
-}
-
-.logout-btn {
-  width: 100%;
-
-  margin-top: 22px;
-  padding: 12px;
-
-  color: var(--danger);
-
-  background: rgba(255, 85, 118, 0.06);
-
-  border: 1px solid rgba(255, 85, 118, 0.15);
-  border-radius: 12px;
-
-  font-size: 11px;
+.login-prompt a {
+  color: var(--pink-light);
   font-weight: 700;
+}
+
+.login-prompt a:hover {
+  text-decoration: underline;
 }
 
 
 /* ============================================
-   25. BOTTOM NAVIGATION
+   TOAST
 ============================================ */
 
-.bottom-nav {
+.baddielink-toast {
   position: fixed;
 
   left: 50%;
-  bottom: 0;
+  bottom: 25px;
 
-  transform: translateX(-50%);
+  width: calc(100% - 32px);
+  max-width: 430px;
 
-  width: 100%;
-  max-width: 700px;
+  padding: 15px 18px;
 
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-
-  padding: 8px 10px calc(8px + env(safe-area-inset-bottom));
-
-  background: rgba(10, 7, 13, 0.9);
-
-  border-top: 1px solid var(--border);
-
-  backdrop-filter: blur(25px);
-  -webkit-backdrop-filter: blur(25px);
-
-  z-index: 50;
-}
-
-.nav-item {
-  position: relative;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3px;
-
-  padding: 5px;
-
-  color: var(--muted-dark);
-
-  background: transparent;
-}
-
-.nav-item span {
-  font-size: 18px;
-  line-height: 1;
-}
-
-.nav-item small {
-  font-size: 8px;
-  font-weight: 600;
-}
-
-.nav-item.active {
-  color: var(--pink);
-}
-
-.notification-dot {
-  position: absolute;
-
-  top: 0;
-  right: calc(50% - 20px);
-
-  min-width: 15px;
-  height: 15px;
-
-  display: grid;
-  place-items: center;
-
-  padding: 0 3px;
-
-  color: white;
-  background: var(--pink);
-
-  border: 2px solid var(--bg);
-
-  border-radius: 100px;
-
-  font-size: 7px;
-}
-
-
-/* ============================================
-   26. MODALS
-============================================ */
-
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-
-  display: none;
-  align-items: flex-end;
-  justify-content: center;
-
-  padding: 12px;
-
-  background: rgba(0, 0, 0, 0.72);
-
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-
-  z-index: 100;
-}
-
-.modal-overlay.show {
-  display: flex;
-}
-
-.chat-window,
-.gift-modal,
-.recharge-modal {
-  width: 100%;
-  max-width: 560px;
-
-  background: #0f0b14;
-
-  border: 1px solid var(--border);
-
-  border-radius: 24px 24px 16px 16px;
-
-  box-shadow: var(--shadow);
-
-  overflow: hidden;
-}
-
-
-/* ============================================
-   27. CHAT
-============================================ */
-
-.chat-window {
-  height: min(88svh, 700px);
-
-  display: flex;
-  flex-direction: column;
-}
-
-.chat-header {
-  min-height: 68px;
-
-  display: flex;
-  align-items: center;
-  gap: 12px;
-
-  padding: 10px 14px;
-
-  border-bottom: 1px solid var(--border);
-
-  background: rgba(255, 255, 255, 0.025);
-}
-
-.chat-header > button {
-  width: 36px;
-  height: 36px;
-
-  color: white;
-  background: transparent;
-
-  font-size: 18px;
-}
-
-.chat-person {
-  flex: 1;
-
-  display: flex;
-  align-items: center;
-  gap: 9px;
-}
-
-.chat-avatar {
-  width: 39px;
-  height: 39px;
-
-  position: relative;
-}
-
-.chat-avatar img {
-  width: 100%;
-  height: 100%;
-
-  object-fit: cover;
-  border-radius: 50%;
-}
-
-.chat-avatar span {
-  position: absolute;
-
-  right: 0;
-  bottom: 0;
-
-  width: 9px;
-  height: 9px;
-
-  background: var(--green);
-
-  border: 2px solid #0f0b14;
-
-  border-radius: 50%;
-}
-
-.chat-person strong {
-  display: block;
-  font-size: 12px;
-}
-
-.chat-person small {
-  display: block;
-
-  margin-top: 2px;
-
-  color: var(--green);
-
-  font-size: 8px;
-}
-
-.chat-body {
-  flex: 1;
-
-  overflow-y: auto;
-
-  padding: 18px 14px;
-}
-
-.chat-date {
-  margin-bottom: 17px;
-
-  text-align: center;
-
-  color: var(--muted-dark);
-
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: 1px;
-}
-
-.message {
-  max-width: 78%;
-
-  margin-bottom: 11px;
-}
-
-.message p {
-  display: inline-block;
-
-  padding: 10px 12px;
-
-  border-radius: 15px;
-
-  font-size: 11px;
-  line-height: 1.45;
-}
-
-.message small {
-  display: block;
-
-  margin-top: 4px;
-
-  color: var(--muted-dark);
-
-  font-size: 7px;
-}
-
-.message.received {
-  margin-right: auto;
-}
-
-.message.received p {
-  color: #e9e2eb;
-
-  background: rgba(255, 255, 255, 0.065);
-
-  border-bottom-left-radius: 5px;
-}
-
-.message.sent {
-  margin-left: auto;
-
-  text-align: right;
-}
-
-.message.sent p {
-  color: white;
-
-  background: linear-gradient(
-    135deg,
-    var(--pink),
-    var(--pink-dark)
-  );
-
-  border-bottom-right-radius: 5px;
-}
-
-.chat-composer {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  padding: 10px;
-
-  border-top: 1px solid var(--border);
-
-  background: rgba(255, 255, 255, 0.025);
-}
-
-.chat-composer button {
-  width: 40px;
-  height: 40px;
-
-  flex-shrink: 0;
-
-  display: grid;
-  place-items: center;
-
-  color: white;
-
-  background: rgba(255, 255, 255, 0.055);
-
-  border-radius: 12px;
-}
-
-.chat-composer button:last-child {
-  background: var(--pink);
-}
-
-.chat-composer input {
-  flex: 1;
-
-  min-width: 0;
-
-  padding: 11px 12px;
-
-  color: white;
-
-  outline: none;
-
-  background: rgba(255, 255, 255, 0.045);
-
-  border: 1px solid var(--border);
-  border-radius: 12px;
-
-  font-size: 11px;
-}
-
-
-/* ============================================
-   28. GIFT MODAL
-============================================ */
-
-.gift-modal,
-.recharge-modal {
-  position: relative;
-
-  padding: 25px 18px 20px;
-
-  text-align: center;
-}
-
-.modal-close {
-  position: absolute;
-
-  top: 13px;
-  right: 13px;
-
-  width: 33px;
-  height: 33px;
-
-  color: var(--muted);
-
-  background: rgba(255, 255, 255, 0.055);
-
-  border-radius: 50%;
-
-  font-size: 19px;
-}
-
-.gift-modal-icon {
-  font-size: 38px;
-
-  margin-bottom: 7px;
-}
-
-.gift-modal h2,
-.recharge-modal h2 {
-  font-family: var(--font-display);
-  font-size: 22px;
-}
-
-.gift-modal > p,
-.recharge-modal > p {
-  margin: 5px 0 18px;
-
-  color: var(--muted);
-
-  font-size: 10px;
-}
-
-.gift-balance {
-  margin-top: 17px;
-
-  color: var(--muted);
-
-  font-size: 10px;
-}
-
-.gift-balance strong {
-  margin-left: 5px;
-
-  color: var(--yellow);
-}
-
-
-/* ============================================
-   29. RECHARGE
-============================================ */
-
-.coin-packages {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 9px;
-
-  margin-bottom: 16px;
-}
-
-.coin-packages button {
-  position: relative;
-
-  padding: 16px 10px;
-
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-
-  color: white;
-
-  background: rgba(255, 255, 255, 0.035);
-
-  border: 1px solid var(--border);
-  border-radius: 14px;
-}
-
-.coin-packages button span {
-  color: var(--yellow);
-
-  font-size: 12px;
-  font-weight: 700;
-}
-
-.coin-packages button strong {
-  font-size: 11px;
-}
-
-.coin-packages button.popular {
-  border-color: rgba(255, 63, 145, 0.45);
-
-  background: rgba(255, 63, 145, 0.08);
-}
-
-.coin-packages button small {
-  position: absolute;
-
-  top: 6px;
-  right: 7px;
-
-  color: var(--pink);
-
-  font-size: 6px;
-  font-weight: 800;
-}
-
-.secure-payment {
-  display: block;
-
-  margin-top: 12px;
-
-  color: var(--muted-dark);
-
-  font-size: 8px;
-}
-
-
-/* ============================================
-   30. TOAST
-============================================ */
-
-.toast {
-  position: fixed;
-
-  left: 50%;
-  bottom: 88px;
-
-  transform: translate(-50%, 20px);
-
-  min-width: 210px;
-
-  display: flex;
-  align-items: center;
-  gap: 9px;
-
-  padding: 11px 14px;
+  transform:
+    translate(-50%, 25px);
 
   opacity: 0;
+  visibility: hidden;
 
-  pointer-events: none;
+  background: rgba(25, 18, 30, 0.95);
 
-  background: #1b1421;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 15px;
 
-  border: 1px solid var(--border);
-  border-radius: 13px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
 
-  box-shadow: var(--shadow);
+  color: white;
 
-  z-index: 200;
+  font-size: 0.8rem;
+  line-height: 1.45;
+
+  text-align: center;
+
+  z-index: 9999;
 
   transition:
-    opacity 0.25s ease,
-    transform 0.25s ease;
+    opacity 0.3s ease,
+    transform 0.3s ease,
+    visibility 0.3s ease;
 }
 
-.toast.show {
+.baddielink-toast.show {
   opacity: 1;
+  visibility: visible;
 
-  transform: translate(-50%, 0);
-}
-
-.toast > span {
-  width: 24px;
-  height: 24px;
-
-  display: grid;
-  place-items: center;
-
-  color: var(--green);
-
-  background: rgba(53, 227, 155, 0.1);
-
-  border-radius: 8px;
-}
-
-.toast p {
-  color: #eee;
-
-  font-size: 10px;
+  transform:
+    translate(-50%, 0);
 }
 
 
 /* ============================================
-   31. DESKTOP
+   RESPONSIVE
 ============================================ */
 
-@media (min-width: 768px) {
+@media (max-width: 560px) {
 
-  .welcome-screen {
-    padding: 50px;
+  .navbar {
+    padding: 17px 20px;
   }
 
-  .welcome-content {
-    width: 420px;
+  .logo {
+    font-size: 1.3rem;
   }
 
-  .welcome-image {
-    height: 470px;
+  .back-link {
+    padding: 8px 13px;
+    font-size: 0.78rem;
   }
 
-  .form-screen {
-    padding-top: 70px;
+  .signup-container {
+    padding: 28px 14px 55px;
   }
 
-  .app-header {
-    padding: 22px 28px 12px;
-  }
+  .signup-card {
+    padding: 25px 18px 28px;
 
-  .app-content {
-    padding: 24px 28px 110px;
-  }
-
-  .profile-image-wrapper {
-    height: 600px;
-  }
-
-  .bottom-nav {
-    bottom: 18px;
-
-    width: min(650px, calc(100% - 30px));
-
-    border: 1px solid var(--border);
-    border-radius: 20px;
-
-    padding-bottom: 8px;
-
-    box-shadow: var(--shadow);
-  }
-
-  .modal-overlay {
-    align-items: center;
-  }
-
-  .chat-window,
-  .gift-modal,
-  .recharge-modal {
     border-radius: 24px;
   }
 
+  .signup-heading {
+    margin-bottom: 30px;
+  }
+
+  .signup-heading h1 {
+    font-size: 2.25rem;
+  }
+
+  .choice-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .choice-content {
+    min-height: 100px;
+
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .choice-icon {
+    margin: 0;
+
+    font-size: 1.45rem;
+  }
+
+  .choice-content strong {
+    margin-bottom: 3px;
+  }
+}
+
+
+@media (min-width: 768px) {
+
+  .signup-container {
+    padding-top: 70px;
+  }
+
+  .signup-card {
+    padding: 45px;
+  }
 }
 
 
 /* ============================================
-   32. LARGE DESKTOP
+   MENU / BODY LOCK
 ============================================ */
 
-@media (min-width: 1100px) {
-
-  .app-content {
-    padding-left: 40px;
-    padding-right: 40px;
-  }
-
-  .discover-heading {
-    margin-bottom: 5px;
-  }
-
-  .profile-card {
-    max-width: 500px;
-  }
-
-  .profile-image-wrapper {
-    height: 620px;
-  }
-
-  .mini-profiles {
-    max-width: 600px;
-  }
-
+body.menu-open {
+  overflow: hidden;
 }
 
 
 /* ============================================
-   33. REDUCED MOTION
+   GENERAL REVEAL ANIMATION
 ============================================ */
 
-@media (prefers-reduced-motion: reduce) {
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
 
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
-    transition: none !important;
-    animation: none !important;
-  }
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+}
 
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
